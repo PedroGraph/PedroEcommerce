@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'mainproyect.wsgi.application'
 DATABASES = {
      'default': dj_database_url.config(
         # Feel free to alter this value to suit your needs.
-        default='postgresql://pedro_user:5V87Y6sW2r6awfM51Swx63hIZF89VH1L@localhost:5432/pedro',
+        default='postgresql://postgres:postgres@localhost/postgres',
         conn_max_age=600
     )
 }
