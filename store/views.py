@@ -58,11 +58,14 @@ def home(request):
     return render(request, 'index.html')
 
 def products(request):
-    locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
-    productslist = list(Products.objects.values())
-    for product in productslist:
-        product['price'] = locale.currency(product['price'], grouping=True)
-    return render(request, 'shop.html', {'products': productslist})
+    try:
+        locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+        productslist = list(Products.objects.values())
+        for product in productslist:
+            product['price'] = locale.currency(product['price'], grouping=True)
+        return render(request, 'shop.html', {'products': productslist})
+    except: 
+        return render(request, 'shop.html', {'error': "No hay productos"})
 
 @login_required
 def cart(request):
@@ -89,11 +92,15 @@ def cart(request):
 
 @login_required
 def orders(request):
-    locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
-    orders = Orders.objects.all()
-    for order in orders:
-        order.total_amount = locale.currency(order.total_amount, grouping=True)
-    return render(request, 'orders.html', {'orders': orders})
+    try:
+        locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+        orders = Orders.objects.all()
+        for order in orders:
+            order.total_amount = locale.currency(order.total_amount, grouping=True)
+        return render(request, 'orders.html', {'orders': orders})
+    except: 
+        return render(request, 'orders.html', {'error': "No hay pedidos"})
+
 
 @login_required
 def addOrder(request):
